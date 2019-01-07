@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>User Profile</h1>
+<table>
+    <tr>
+        <td>
+            Full name
+        </td>
+        <td th:text="|You are ${model.get('title')} ${model.get('firstName')} ${#strings.toUpperCase(model.get('lastName'))}, welcome|">
+            Miss Jane Green
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Date of Birth
+        </td>
+        <td th:text="${#dates.format(model.get('dateOfBirth'), 'dd-MMM-yyyy')}">
+            17-JAN-1946
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Description
+        </td>
+        <td th:utext="${model.get('description')}">
+            Description goes here
+        </td>
+    </tr>
+</table>
+
+<h2>Languages spoken</h2>
+<p>You speak <span th:text="${model.languages.size() ge 3} ? '3 or more': ${model.languages.size()}">x</span> languages</p>
+    <ul th:if="${model.languages.size() >=3}">
+        <li th:each="language: ${model.languages}" th:text="${language}">language1</li>
+    </ul>
+<p th:if="${model.languages.size()<3}">You speak <span th:each="language : ${model.languages}" th:text="${language} + ' '">language1</span></p>
+<p><a th:href="@{/}">Click here</a> to return on home page.</p>
+</body>
+</html>
