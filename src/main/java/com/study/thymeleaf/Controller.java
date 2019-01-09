@@ -2,6 +2,7 @@ package com.study.thymeleaf;
 
 
 import com.study.thymeleaf.Model.UserModel;
+import com.study.thymeleaf.Validate.UserModelValidator;
 import org.apache.catalina.User;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,6 +54,7 @@ public class Controller {
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public String saveUser(@Valid UserModel userModel, BindingResult bindingResult){
+        new UserModelValidator().validate(userModel, bindingResult);
         if (bindingResult.hasErrors()){
             return "newUser";
         }
